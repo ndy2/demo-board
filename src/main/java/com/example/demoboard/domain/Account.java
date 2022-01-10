@@ -15,14 +15,9 @@ public class Account {
     @GeneratedValue
     @Column(name = "member_id")
     private Long id;
-
     private String name;
-
     private String username;
-
     private String password;
-
     private String email;
-
     private String role;
 }

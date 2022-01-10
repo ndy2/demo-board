@@ -22,10 +22,6 @@ spring:
   devtools:
     livereload:
       enabled: true
-  security:
-    user:
-      name: user
-      password: '{noop}1234'
 
 logging:
   level:

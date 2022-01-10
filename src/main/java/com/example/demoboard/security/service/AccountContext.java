@@ -15,7 +15,8 @@ public class AccountContext extends User {
         this.account = account;
     }
 
-    public Account getMember() {
+    public Account getAccount() {
         return account;
     }
+
 }

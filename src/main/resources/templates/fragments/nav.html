@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <nav th:fragment="navFragment" class="navbar navbar-fixed-top header">
     <div class="col-md-12">
         <div class="navbar-header">
@@ -20,6 +21,12 @@
                 </div>
             </form>
             <ul class="nav navbar-nav navbar-right">
+
+                <!--인증시 사용된 객체에 대한 정보-->
+                <div sec:authorize="isAuthenticated()">
+                    <div  sec:authentication="principal.username"></div>
+                </div>
+
                 <li>
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-bell"></i></a>
                     <ul class="dropdown-menu">
@@ -29,6 +36,14 @@
                 </li>
                 <li><a href="/user/list"><i class="glyphicon glyphicon-user"></i></a></li>
             </ul>
+            <ul class="nav navbar-nav navbar-right">
+
+
+            </ul>
+
+
+
+
         </div>
     </div>
 </nav>
