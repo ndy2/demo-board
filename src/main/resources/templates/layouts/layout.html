@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head th:replace="fragments/config :: configFragment"/>
+
+
+<body>
+    <!-- nav 시작 -->
+    <nav th:replace="fragments/nav :: navFragment"/>
+    <!-- nav 끝 -->
+
+    <!-- subNav 시작 -->
+    <div th:replace="fragments/subNav :: subNavFragment"/>
+    <!-- subNav 끝 -->
+
+
+    <!-- content 시작 -->
+    <div layout:fragment="content"></div>
+    <!-- content 끝 -->
+
+</body>
+</html>
