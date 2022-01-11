@@ -6,6 +6,9 @@
 <div layout:fragment="content" class="container" id="main">
     <div class="col-md-6 col-md-offset-3">
         <div class="panel panel-default content-main">
+            <div th:if="${param.error}" class="form-group">
+                <span th:text="${exception}" class="alert alert-danger">잘못된 아이디나 암호입니다</span>
+            </div>
             <form name="question" method="post" th:action="@{/login}">
                 <div class="form-group">
                     <label for="username">사용자 아이디</label>

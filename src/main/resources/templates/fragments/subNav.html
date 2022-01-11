@@ -21,13 +21,14 @@
         </div>
         <div class="collapse navbar-collapse" id="navbar-collapse2">
             <ul class="nav navbar-nav navbar-right">
-                <li class="active"><a href="/">Posts</a></li>
+                <li th:class="${#request.requestURI == '/' ? 'active':''}"
+                    th:classappend="${#request.requestURI.startsWith('/qna') ? 'active':''}"><a th:href="@{/}">Posts</a></li>
 
-                <li><a  sec:authorize="isAnonymous()" th:href="@{/login}" role="button">로그인</a></li>
-                <li><a  sec:authorize="isAnonymous()" th:href="@{/user/form}" role="button">회원가입</a></li>
+                <li th:class="${#request.requestURI == '/login' ? 'active':''}"><a sec:authorize="isAnonymous()" th:href="@{/login}" role="button">로그인</a></li>
+                <li th:class="${#request.requestURI == '/user/form' ? 'active':''}"><a sec:authorize="isAnonymous()" th:href="@{/user/form}" role="button">회원가입</a></li>
 
-                <li><a sec:authorize="isAuthenticated()" href="/logout" role="button">로그아웃</a></li>
-                <li><a sec:authorize="isAuthenticated()" th:href="@{/user/edit}" role="button">개인정보수정</a></li>
+                <li th:class="${#request.requestURI == '/logout' ? 'active':''}"><a  sec:authorize="isAuthenticated()" href="/logout" role="button">로그아웃</a></li>
+                <li th:class="${#request.requestURI == '/user/edit' ? 'active':''}"> <a sec:authorize="isAuthenticated()" th:href="@{/user/edit}" role="button">개인정보수정</a></li>
             </ul>
         </div>
     </div>

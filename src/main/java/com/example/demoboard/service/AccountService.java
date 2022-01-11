@@ -18,21 +18,20 @@ public class AccountService {
     private final AccountRepository accountRepository;
 
     @Transactional
-    public void register(AccountDto accountDto) {
+    public Long register(AccountDto accountDto) {
         ModelMapper modelMapper = new ModelMapper();
         modelMapper.getConfiguration()
                 .setMatchingStrategy(MatchingStrategies.STRICT);
 
-        System.out.println("accountDto = " + accountDto);
         Account account = modelMapper.map(accountDto,Account.class);
-        System.out.println("account = " + account);
         accountRepository.save(account);
+
+        return account.getId();
     }
 
     @Transactional
     public void edit(Account account, AccountEditDto accountEditDto) {
         Account findAccount = accountRepository.findById(account.getId()).get();
-        System.out.println("account = " + Boolean.toString(account==findAccount));
 
         //== DB의 정보 수정 ==//
         updateAccount(accountEditDto, findAccount);

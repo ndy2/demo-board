@@ -21,16 +21,19 @@
                 <div class="form-group">
                     <label for="password">비밀번호</label>
                     <input type="password" class="form-control" th:errorclass="fieldError" id="password" th:field="*{password}" placeholder="Password">
+                    <p class="field-error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"/>
 
                 </div>
                 <div class="form-group">
                     <label for="name">이름</label>
                     <input class="form-control" th:errorclass="fieldError" id="name" th:field="*{name}" placeholder="Name">
+                    <p class="field-error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"/>
 
                 </div>
                 <div class="form-group">
                     <label for="email">이메일</label>
                     <input type="email" class="form-control" th:errorclass="fieldError" id="email" th:field="*{email}" placeholder="Email">
+                    <p class="field-error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"/>
 
                 </div>
                 <button type="submit" class="btn btn-success clearfix pull-right">수정</button>

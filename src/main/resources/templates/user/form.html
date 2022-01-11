@@ -12,10 +12,10 @@
 <div layout:fragment="content" class="container" id="main">
     <div class="col-md-6 col-md-offset-3">
         <div class="panel panel-default content-main">
-            <form name="question" method="post" th:action="@{/user/form}" th:object="${memberForm}">
+            <form name="question" method="post" th:action="@{/user/form}" th:object="${accountDto}">
                 <div class="form-group">
-                    <label for="userId">사용자 아이디</label>
-                    <input class="form-control" th:errorclass="fieldError" id="userId" th:field="*{username}" placeholder="User ID">
+                    <label for="username">사용자 아이디</label>
+                    <input class="form-control" th:errorclass="fieldError" id="username" th:field="*{username}" placeholder="User ID">
                     <p class="field-error" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"/>
 
                 </div>

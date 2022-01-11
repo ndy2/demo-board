@@ -10,6 +10,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 public class CustomAuthenticationProvider implements AuthenticationProvider {
@@ -19,13 +20,15 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
     @Autowired private PasswordEncoder passwordEncoder;
 
     @Override
+    @Transactional
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         String username = authentication.getName();
         String password = (String) authentication.getCredentials();
 
         AccountContext ac = (AccountContext)userDetailsService.loadUserByUsername(username);
-        log.info("password : ", password);
-        log.info("ac.getMEmber().getPassword()",ac.getAccount().getPassword());
+        log.info("password : " + password);
+        log.info("ac.getAccount().getPassword()"+ ac.getAccount().getPassword());
+        System.out.println("ac.getAccount() = " + ac.getAccount());
         if(!passwordEncoder.matches(password,ac.getAccount().getPassword())){
             log.info("BadCredentialsException");
             throw new BadCredentialsException("BadCredentialsException");

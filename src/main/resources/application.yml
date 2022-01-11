@@ -3,13 +3,16 @@ server:
   port: 8080
 spring:
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    password: 1234
-    url: jdbc:mysql://localhost:3306/demo?useUnicode=true&serverTimezone=Asia/Seoul
-    username: root
+    driver-class-name: org.h2.Driver
+    password:
+    url: jdbc:h2:mem:testdb
+    username: sa
+  h2:
+    console:
+      enabled: true
   jpa:
-    database: mysql
-    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    database: h2
+    database-platform: org.hibernate.dialect.H2Dialect
     generate-ddl: true
     show-sql: false
     hibernate:
@@ -22,6 +25,11 @@ spring:
   devtools:
     livereload:
       enabled: true
+  data:
+    web:
+      pageable:
+        default-page-size: 5
+        max-page-size: 100
 
 logging:
   level:
