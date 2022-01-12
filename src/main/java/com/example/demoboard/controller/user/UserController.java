@@ -17,6 +17,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Slf4j
@@ -26,6 +27,16 @@ public class UserController {
 
     private final PasswordEncoder passwordEncoder;
     private final AccountService accountService;
+
+    @ModelAttribute
+    private Account getAccount() {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if(principal.equals("anonymousUser")){
+            return Account.anonymousAccount();
+        }
+        return (Account) principal;
+    }
+
 
     /**
      * 회원가입
@@ -55,33 +66,24 @@ public class UserController {
      * 개인정보수정
      */
     @GetMapping("/user/edit")
-    public String editUserForm(Model model){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Account account = (Account)authentication.getPrincipal();
-        model.addAttribute("account",account);
+    public String editUserForm(){
         return "user/edit";
     }
 
     @PostMapping("/user/edit")
-    public String editUser(@Validated AccountEditDto accountEditDto, BindingResult result, Model model){
+    public String editUser(@Validated AccountEditDto accountEditDto, BindingResult result){
         //==SecurityContextHolder 에서 account 가져오기==//
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Account account = (Account)authentication.getPrincipal();
 
         if(result.hasErrors()){
-            account.setEmail(accountEditDto.getEmail());
-            account.setName(accountEditDto.getName());
-            account.setPassword(accountEditDto.getPassword());
-
-            model.addAttribute("account",account);
+            accountService.edit(account,accountEditDto);
             return "/user/edit";
         }
-
 
         //accountService 를 이용해 DB 정보 변경 ==//
         accountEditDto.setPassword(passwordEncoder.encode(accountEditDto.getPassword()));
         accountService.edit(account,accountEditDto);
-
 
         //==update 된 Account 로 Authentication 만들고 SecurityContextHolder 에 보관==//
         Authentication updatedAuthentication =

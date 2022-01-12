@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -20,11 +21,14 @@ public class PostController {
 
     private final PostService postService;
 
+    //== Account 정보 가져오기 ==//
+    @ModelAttribute
+    private Account getAccount() {
+        return (Account) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    }
+
     @GetMapping("qna/form")
     public String PostForm(Model model){
-        Account account = getAccount();
-        model.addAttribute("writer", account.getName());
-
         return "qna/form";
     }
 
@@ -46,10 +50,5 @@ public class PostController {
     }
 
 
-    //== Account 정보 가져오기 ==//
-    private Account getAccount() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return (Account) authentication.getPrincipal();
-    }
 
 }

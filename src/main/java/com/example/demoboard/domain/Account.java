@@ -34,6 +34,10 @@ public class Account {
         return account;
     }
 
+    public static Account anonymousAccount() {
+        return createAccount("","anonymous","","");
+    }
+
     //==수정 매서드==// Update
     public void update(String email, String name, String password) {
         this.setEmail(email);

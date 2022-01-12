@@ -11,6 +11,7 @@ import javax.persistence.EntityManager;
 import java.time.LocalDateTime;
 
 import static com.example.demoboard.domain.Account.createAccount;
+import static com.example.demoboard.domain.Post.createPost;
 
 @Component
 @RequiredArgsConstructor
@@ -29,6 +30,7 @@ public class InitDB {
     @RequiredArgsConstructor
     static class InitService{
 
+        public static final String content = "내용 내용 내용 내용 내용 내용 내용 내용 내용 내용";
         private final EntityManager em;
 
         public void dbInit1(){
@@ -36,7 +38,7 @@ public class InitDB {
             em.persist(account);
 
             for (int i = 0; i < 13; i++) {
-                Post post = createPostOf(account,i);
+                Post post = createPost(account,"나는 " + account.getName() + i, content);
                 em.persist(post);
             }
         }
@@ -46,22 +48,10 @@ public class InitDB {
             em.persist(account);
 
             for (int i = 0; i < 13; i++) {
-                Post post = createPostOf(account,i);
+                Post post = createPost(account,"나는 " + account.getName() + i, content);
                 em.persist(post);
             }
         }
     }
-
-    private static Post createPostOf(Account account,int i) {
-        Post post = new Post();
-        post.setTitle("나는 " + account.getName() + i);
-        post.setWriter(account);
-        post.setContents("나는 내용 나는 내용 나는 내용 나는 내용 나는 내용 나는 내용");
-        post.setDateTime(LocalDateTime.now());
-        return post;
-    }
-
-
-
 
 }
