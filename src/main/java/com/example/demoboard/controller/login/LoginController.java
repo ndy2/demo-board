@@ -17,6 +17,12 @@ import javax.servlet.http.HttpServletResponse;
 @Controller
 public class LoginController {
 
+    /**
+     * 로그인 페이지
+     * @param error 에러 유무 (true)
+     * @param exception 예외 타입
+     * 은 CustomAuthenticationFailureHandler 에서 url에 작성된다.
+     */
     @GetMapping("/login")
     public String loginForm(@RequestParam(required = false) String error,
                             @RequestParam(required = false) String exception,
@@ -35,17 +41,5 @@ public class LoginController {
             new SecurityContextLogoutHandler().logout(request,response,authentication);
         }
         return "redirect:/login";
-    }
-
-    @GetMapping("/denied")
-    public String accessDenied(@RequestParam(required = false) String exception,
-                               Model model){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Account account = (Account)authentication.getPrincipal();
-//        ((Account) authentication.getPrincipal()).getUsername()
-        model.addAttribute("username", account.getUsername());
-        model.addAttribute("exception",exception);
-
-        return "user/login/denied";
     }
 }

@@ -24,6 +24,7 @@ public class Account {
     @OneToMany(mappedBy = "writer")
     private List<Post> postList = new ArrayList<>();
 
+    //==생성 매서드==// Create
     public static Account createAccount(String name, String username, String email, String password) {
         Account account = new Account();
         account.setName(name);
@@ -31,5 +32,12 @@ public class Account {
         account.setEmail(email);
         account.setPassword(password);
         return account;
+    }
+
+    //==수정 매서드==// Update
+    public void update(String email, String name, String password) {
+        this.setEmail(email);
+        this.setName(name);
+        this.setPassword(password);
     }
 }

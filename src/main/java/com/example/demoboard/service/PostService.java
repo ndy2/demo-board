@@ -1,9 +1,6 @@
 package com.example.demoboard.service;
 
-import com.example.demoboard.domain.Post;
-import com.example.demoboard.domain.PostContentDto;
-import com.example.demoboard.domain.PostDisplayDto;
-import com.example.demoboard.domain.PostUploadDto;
+import com.example.demoboard.domain.*;
 import com.example.demoboard.repository.AccountRepository;
 import com.example.demoboard.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +9,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;
+
+import static com.example.demoboard.domain.Post.createPost;
 
 @Service
 @RequiredArgsConstructor
@@ -24,12 +24,7 @@ public class PostService {
 
     @Transactional
     public Long post(Long writerId, PostUploadDto postUploadDto) {
-        Post post = new Post();
-        post.setWriter(accountRepository.findById(writerId).get());
-        post.setTitle(postUploadDto.getTitle());
-        post.setContents(postUploadDto.getContents());
-        post.setDateTime(LocalDateTime.now());
-
+        Post post = createPost(accountRepository.findById(writerId).get(), postUploadDto.getTitle(), postUploadDto.getContents());
         postRepository.save(post);
         return post.getId();
     }

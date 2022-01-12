@@ -43,7 +43,7 @@ public class UserController {
             for (ObjectError allError : result.getAllErrors()) {
                 System.out.println("allError = " + allError);
             }
-            return "/user/form";
+            return "user/form";
         }
 
         accountDto.setPassword(passwordEncoder.encode(accountDto.getPassword()));
@@ -76,7 +76,6 @@ public class UserController {
             model.addAttribute("account",account);
             return "/user/edit";
         }
-
 
 
         //accountService 를 이용해 DB 정보 변경 ==//

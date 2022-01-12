@@ -22,9 +22,7 @@ public class PostController {
 
     @GetMapping("qna/form")
     public String PostForm(Model model){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Account account = (Account) authentication.getPrincipal();
-
+        Account account = getAccount();
         model.addAttribute("writer", account.getName());
 
         return "qna/form";
@@ -32,24 +30,26 @@ public class PostController {
 
     @PostMapping("qna/form")
     public String Post(@Validated PostUploadDto postUploadDto){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Account account = (Account) authentication.getPrincipal();
-
+        Account account = getAccount();
         Long postId = postService.post(account.getId(), postUploadDto);
 
+        //게시글 작성후 게시글 페이지로 이동
         return "redirect:/qna/show/"+postId;
     }
 
     @GetMapping("qna/show/{postId}")
     public String PostContent(@PathVariable Long postId, Model model){
-
-        System.out.println("postId = " + postId);
-        System.out.println("PostController.PostContent");
-
-        PostContentDto dto = postService.findPostContentDtoById(postId);
-        model.addAttribute("post",dto);
+        PostContentDto postContentDto = postService.findPostContentDtoById(postId);
+        model.addAttribute("post",postContentDto);
 
         return "qna/show";
+    }
+
+
+    //== Account 정보 가져오기 ==//
+    private Account getAccount() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return (Account) authentication.getPrincipal();
     }
 
 }

@@ -10,6 +10,8 @@ import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import static com.example.demoboard.domain.Account.createAccount;
+
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -19,13 +21,8 @@ public class AccountService {
 
     @Transactional
     public Long register(AccountDto accountDto) {
-        ModelMapper modelMapper = new ModelMapper();
-        modelMapper.getConfiguration()
-                .setMatchingStrategy(MatchingStrategies.STRICT);
-
-        Account account = modelMapper.map(accountDto,Account.class);
+        Account account = createAccount(accountDto.getName(),accountDto.getUsername(), accountDto.getEmail(),accountDto.getPassword());
         accountRepository.save(account);
-
         return account.getId();
     }
 
@@ -34,20 +31,11 @@ public class AccountService {
         Account findAccount = accountRepository.findById(account.getId()).get();
 
         //== DB의 정보 수정 ==//
-        updateAccount(accountEditDto, findAccount);
+        findAccount.update(accountEditDto.getEmail(),accountEditDto.getName(), accountEditDto.getPassword());
 
         //== 현재 접속 중인 account 정보 수정==//
-        updateAccount(accountEditDto, account);
-        return;
+        account.update(accountEditDto.getEmail(),accountEditDto.getName(), accountEditDto.getPassword());
     }
 
-    private void updateAccount(AccountEditDto accountEditDto, Account findAccount) {
-        findAccount.setEmail(accountEditDto.getEmail());
-        findAccount.setName(accountEditDto.getName());
-        findAccount.setPassword(accountEditDto.getPassword());
-    }
 
-    public Account findById(Long id) {
-        return accountRepository.findById(id).get();
-    }
 }

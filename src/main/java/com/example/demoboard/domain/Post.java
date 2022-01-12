@@ -1,14 +1,17 @@
 package com.example.demoboard.domain;
 
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 import static javax.persistence.FetchType.LAZY;
 
-@Data
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@ToString(exclude = {"writer"})
 public class Post {
 
     @Id @GeneratedValue
@@ -24,4 +27,16 @@ public class Post {
     private String contents;
 
     private LocalDateTime dateTime;
+
+    //==생성 매서드==// Create
+    public static Post createPost(Account writer, String title, String contents) {
+        Post post = new Post();
+        post.setWriter(writer);
+        post.setTitle(title);
+        post.setContents(contents);
+        post.setDateTime(LocalDateTime.now());
+        return post;
+    }
+
+    //==수정 매서드==// Update
 }
