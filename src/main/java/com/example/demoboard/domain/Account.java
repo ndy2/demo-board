@@ -16,6 +16,8 @@ public class Account {
     @Column(name = "account_id")
     private Long id;
     private String name;
+
+    @Column(nullable = false, length = 20, unique = true)
     private String username;
     private String password;
     private String email;
@@ -43,5 +45,15 @@ public class Account {
         this.setEmail(email);
         this.setName(name);
         this.setPassword(password);
+    }
+
+    //==연관관계 편의 매서드==//
+    public void writePost(Post post){
+        this.postList.add(post);
+        post.setWriter(this);
+    }
+
+    public void writeCommentOnPost(Comment comment, Post post){
+        post.writeComment(comment,this);
     }
 }

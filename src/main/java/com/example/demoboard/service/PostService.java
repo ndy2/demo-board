@@ -22,8 +22,7 @@ public class PostService {
     private final PostRepository postRepository;
 
     @Transactional
-    public Long post(Long writerId, PostDto postDto) {
-        Post post = createPost(accountRepository.findById(writerId).get(), postDto.getTitle(), postDto.getContents());
+    public Long post(Post post) {
         postRepository.save(post);
         return post.getId();
     }

@@ -11,6 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import static com.example.demoboard.domain.Post.createPost;
+
 @Controller
 @RequiredArgsConstructor
 public class PostController {
@@ -30,8 +32,11 @@ public class PostController {
 
     @PostMapping("qna/form")
     public String Post(@Validated PostDto postDto){
-        Account account = getAccount();
-        Long postId = postService.post(account.getId(), postDto);
+        Account writer = getAccount();
+        Post post = createPost(postDto.getTitle(), postDto.getContents());
+        writer.writePost(post);
+
+        Long postId = postService.post(post);
 
         //게시글 작성후 게시글로 이동
         return "redirect:/qna/"+postId;

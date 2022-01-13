@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import static com.example.demoboard.domain.Account.createAccount;
+
 @Slf4j
 @Controller
 @RequiredArgsConstructor
@@ -58,7 +60,8 @@ public class UserController {
         }
 
         accountDto.setPassword(passwordEncoder.encode(accountDto.getPassword()));
-        accountService.register(accountDto);
+        Account account = createAccount(accountDto.getName(), accountDto.getUsername(), accountDto.getEmail(), accountDto.getPassword());
+        accountService.register(account);
         return "redirect:/";
     }
 

@@ -38,6 +38,8 @@ public class HomeController {
         Page<PostDisplayDto> posts= postService.findPostDisplayDto(pageable.previousOrFirst());
         model.addAttribute("posts",posts);
 
+
+
         return "index";
     }
 

@@ -20,9 +20,9 @@ public class AccountService {
     private final AccountRepository accountRepository;
 
     @Transactional
-    public Long register(AccountDto accountDto) {
-        Account account = createAccount(accountDto.getName(),accountDto.getUsername(), accountDto.getEmail(),accountDto.getPassword());
+    public Long register(Account account) {
         accountRepository.save(account);
+        System.out.println("account = " + account);
         return account.getId();
     }
 
@@ -38,4 +38,7 @@ public class AccountService {
     }
 
 
+    public Account findById(Long id) {
+        return accountRepository.findById(id).get();
+    }
 }

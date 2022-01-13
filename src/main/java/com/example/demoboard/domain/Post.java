@@ -21,25 +21,23 @@ public class Post {
     private Long id;
 
     @ManyToOne(fetch = LAZY)
-    @JoinColumn(name="account_id")
+    @JoinColumn(name="account_id", foreignKey = @ForeignKey(name="fk_post_writer"))
     private Account writer;
     private String title;
 
     @Lob
     private String contents;
-    private LocalDateTime dateTime;
+    private LocalDateTime createDate;
 
-    @OneToMany
-    @JoinColumn(name="comment_id")
+    @OneToMany(mappedBy = "post")
     private List<Comment> comments = new ArrayList<>();
 
     //==생성 매서드==// Create
-    public static Post createPost(Account writer, String title, String contents) {
+    public static Post createPost(String title, String contents) {
         Post post = new Post();
-        post.setWriter(writer);
         post.setTitle(title);
         post.setContents(contents);
-        post.setDateTime(LocalDateTime.now());
+        post.setCreateDate(LocalDateTime.now());
         return post;
     }
 
@@ -51,5 +49,11 @@ public class Post {
     public void edit(String title, String contents) {
         this.title = title;
         this.contents = contents;
+    }
+
+    //==연관관계 편의 매서드==//
+    public void writeComment(Comment comment, Account writer) {
+        this.comments.add(comment);
+        comment.setWriter(writer);
     }
 }
