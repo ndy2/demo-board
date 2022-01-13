@@ -31,9 +31,15 @@ spring:
       pageable:
         default-page-size: 5
         max-page-size: 100
-
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled:
+          true
 logging:
   level:
     org:
       springframework:
         security: DEBUG
+
+

@@ -56,7 +56,7 @@ public class PostController {
         return "qna/edit";
     }
 
-    @PostMapping("qna/edit/{postId}")
+    @PutMapping("qna/edit/{postId}")
     public String PostEdit(@PathVariable Long postId, PostDto postDto){
         //사용자 검증
         if(!isValidEditRequest(postId)){
@@ -69,7 +69,7 @@ public class PostController {
         return "redirect:/qna/"+postId;
     }
 
-    @PostMapping("qna/delete/{postId}")
+    @DeleteMapping("qna/{postId}")
     public String PostDelete(@PathVariable Long postId){
         //사용자 검증
         if(!isValidEditRequest(postId)){

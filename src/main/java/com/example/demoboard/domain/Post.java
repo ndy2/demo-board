@@ -4,6 +4,8 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import static javax.persistence.FetchType.LAZY;
 
@@ -25,8 +27,11 @@ public class Post {
 
     @Lob
     private String contents;
-
     private LocalDateTime dateTime;
+
+    @OneToMany
+    @JoinColumn(name="comment_id")
+    private List<Comment> comments = new ArrayList<>();
 
     //==생성 매서드==// Create
     public static Post createPost(Account writer, String title, String contents) {
@@ -38,5 +43,13 @@ public class Post {
         return post;
     }
 
+    public boolean isWrittenBy(Long writerId) {
+        return writer.getId() == writerId;
+    }
+
     //==수정 매서드==// Update
+    public void edit(String title, String contents) {
+        this.title = title;
+        this.contents = contents;
+    }
 }
