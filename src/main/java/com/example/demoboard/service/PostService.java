@@ -9,8 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.validation.constraints.NotEmpty;
-import java.time.LocalDateTime;
+import java.util.Optional;
 
 import static com.example.demoboard.domain.Post.createPost;
 
@@ -23,8 +22,8 @@ public class PostService {
     private final PostRepository postRepository;
 
     @Transactional
-    public Long post(Long writerId, PostUploadDto postUploadDto) {
-        Post post = createPost(accountRepository.findById(writerId).get(), postUploadDto.getTitle(), postUploadDto.getContents());
+    public Long post(Long writerId, PostDto postDto) {
+        Post post = createPost(accountRepository.findById(writerId).get(), postDto.getTitle(), postDto.getContents());
         postRepository.save(post);
         return post.getId();
     }
@@ -34,8 +33,24 @@ public class PostService {
                 .map(PostDisplayDto::new);
     }
 
-    public PostContentDto findPostContentDtoById(Long postId) {
-        return postRepository.findById(postId)
-                .map(PostContentDto::new).get();
+    public Post findById(Long id){
+        return postRepository.findById(id).get();
+    }
+
+    public boolean isWrittenBy(Long postId, Long writerId) {
+        Optional<Post> postOptional = postRepository.findById(postId);
+        return postOptional.isPresent()
+                && postOptional.get().isWrittenBy(writerId);
+    }
+
+    @Transactional
+    public void edit(Long postId, PostDto postDto) {
+        Post post = postRepository.findById(postId).get();
+        post.edit(postDto.getTitle(),postDto.getContents());
+    }
+
+    @Transactional
+    public void delete(Long postId) {
+        postRepository.deleteById(postId);
     }
 }

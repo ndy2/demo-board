@@ -24,7 +24,7 @@
 
                 <!--인증시 사용된 객체에 대한 정보-->
                 <div sec:authorize="isAuthenticated()">
-                    <div  sec:authentication="principal.username"></div>
+                    <div  th:text="${account.name}"></div>
                 </div>
 
                 <li>

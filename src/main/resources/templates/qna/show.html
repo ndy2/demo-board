@@ -18,7 +18,7 @@
                                 <img src="https://graph.facebook.com/v2.3/100000059371774/picture" class="article-author-thumb" alt="">
                             </div>
                             <div class="article-header-text">
-                                <p class="article-author-name" th:text="${post.writer}"/>
+                                <p class="article-author-name" th:text="${post.writer.name}"/>
                                 <p class="article-header-time" th:text="${post.dateTime}"/>
                             </div>
                         </div>
@@ -28,10 +28,10 @@
                         <div class="article-util">
                             <ul class="article-util-list">
                                 <li>
-                                    <a class="link-modify-article" href="/questions/423/form">수정</a>
+                                    <a th:if="${account.id.equals(post.writer.id)}" class="link-modify-article" th:href="@{|/qna/edit/${post.id}|}">수정</a>
                                 </li>
                                 <li>
-                                    <form class="form-delete" action="/questions/423" method="POST">
+                                    <form th:if="${account.id.equals(post.writer.id)}" class="form-delete" th:action="@{|/qna/delete/${post.id}}" method="POST">
                                         <input type="hidden" name="_method" value="DELETE">
                                         <button class="link-delete-article" type="submit">삭제</button>
                                     </form>

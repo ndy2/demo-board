@@ -1,19 +1,15 @@
 package com.example.demoboard.controller.post;
 
 import com.example.demoboard.domain.Account;
-import com.example.demoboard.domain.PostContentDto;
-import com.example.demoboard.domain.PostUploadDto;
+import com.example.demoboard.domain.Post;
+import com.example.demoboard.domain.PostDto;
 import com.example.demoboard.service.PostService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequiredArgsConstructor
@@ -28,27 +24,65 @@ public class PostController {
     }
 
     @GetMapping("qna/form")
-    public String PostForm(Model model){
+    public String PostForm(){
         return "qna/form";
     }
 
     @PostMapping("qna/form")
-    public String Post(@Validated PostUploadDto postUploadDto){
+    public String Post(@Validated PostDto postDto){
         Account account = getAccount();
-        Long postId = postService.post(account.getId(), postUploadDto);
+        Long postId = postService.post(account.getId(), postDto);
 
-        //게시글 작성후 게시글 페이지로 이동
-        return "redirect:/qna/show/"+postId;
+        //게시글 작성후 게시글로 이동
+        return "redirect:/qna/"+postId;
     }
 
-    @GetMapping("qna/show/{postId}")
+    @GetMapping("qna/{postId}")
     public String PostContent(@PathVariable Long postId, Model model){
-        PostContentDto postContentDto = postService.findPostContentDtoById(postId);
-        model.addAttribute("post",postContentDto);
-
+        Post post = postService.findById(postId);
+        model.addAttribute("post",post);
         return "qna/show";
     }
 
+    @GetMapping("qna/edit/{postId}")
+    public String PostEditForm(@PathVariable Long postId, Model model){
+        //사용자 검증
+        if(!isValidEditRequest(postId)){
+            return "denied";
+        }
 
+        Post post = postService.findById(postId);
+        model.addAttribute("post",post);
+        return "qna/edit";
+    }
 
+    @PostMapping("qna/edit/{postId}")
+    public String PostEdit(@PathVariable Long postId, PostDto postDto){
+        //사용자 검증
+        if(!isValidEditRequest(postId)){
+            return "denied";
+        }
+        //수정
+        postService.edit(postId,postDto);
+
+        //수정 후 수정된 게시글로 이동
+        return "redirect:/qna/"+postId;
+    }
+
+    @PostMapping("qna/delete/{postId}")
+    public String PostDelete(@PathVariable Long postId){
+        //사용자 검증
+        if(!isValidEditRequest(postId)){
+            return "denied";
+        }
+        //수정
+        postService.delete(postId);
+
+        //삭제 후 메인페이지로 이동
+        return "redirect:/";
+    }
+
+    private boolean isValidEditRequest(Long postId) {
+        return postService.isWrittenBy(postId, getAccount().getId());
+    }
 }

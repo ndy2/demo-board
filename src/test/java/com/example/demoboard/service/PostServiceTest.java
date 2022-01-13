@@ -2,8 +2,7 @@ package com.example.demoboard.service;
 
 import com.example.demoboard.domain.AccountDto;
 import com.example.demoboard.domain.PostDisplayDto;
-import com.example.demoboard.domain.PostUploadDto;
-import net.bytebuddy.description.annotation.AnnotationValue;
+import com.example.demoboard.domain.PostDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,7 +11,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.awt.print.Pageable;
 import java.util.List;
 
 @SpringBootTest
@@ -33,13 +31,13 @@ class PostServiceTest {
         Long id2 = accountService.register(accountDto2);
 
         for (int i = 0; i < 13; i++) {
-            PostUploadDto postUploadDto = createPostUploadDto("나는 득윤 "+i);
-            postService.post(id1,postUploadDto);
+            PostDto postDto = createPostUploadDto("나는 득윤 "+i);
+            postService.post(id1, postDto);
         }
 
         for (int i = 0; i < 15; i++) {
-            PostUploadDto postUploadDto = createPostUploadDto("나는 하영 "+i);
-            postService.post(id2,postUploadDto);
+            PostDto postDto = createPostUploadDto("나는 하영 "+i);
+            postService.post(id2, postDto);
         }
 
         //when
@@ -57,11 +55,11 @@ class PostServiceTest {
 
     }
 
-    private PostUploadDto createPostUploadDto(String title) {
-        PostUploadDto postUploadDto1 = new PostUploadDto();
-        postUploadDto1.setTitle(title);
-        postUploadDto1.setContents("나는 득윤 나는 득윤 나는 득윤 나는 득윤 나는 득윤 나는 득윤 나는 득윤");
-        return postUploadDto1;
+    private PostDto createPostUploadDto(String title) {
+        PostDto postDto1 = new PostDto();
+        postDto1.setTitle(title);
+        postDto1.setContents("나는 득윤 나는 득윤 나는 득윤 나는 득윤 나는 득윤 나는 득윤 나는 득윤");
+        return postDto1;
     }
 
     private AccountDto createAccountDto(String name, String username, String password, String email) {

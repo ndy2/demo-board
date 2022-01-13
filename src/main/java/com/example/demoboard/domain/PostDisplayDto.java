@@ -4,6 +4,9 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 
+/**
+ * Index 페이지에 뿌리기 위한 Post Dto (내용 제외)
+ */
 @Data
 public class PostDisplayDto {
     private Long id;

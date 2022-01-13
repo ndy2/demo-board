@@ -13,6 +13,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -21,6 +22,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class HomeController {
 
     private final PostService postService;
+
+    @ModelAttribute
+    private Account getAccount() {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if(principal.equals("anonymousUser")){
+            return Account.anonymousAccount();
+        }
+        return (Account) principal;
+    }
 
     @GetMapping("/")
     public String home(@PageableDefault(sort = "id",direction = Sort.Direction.DESC,size = 5) Pageable pageable,

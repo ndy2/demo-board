@@ -19,7 +19,8 @@ spring:
       ddl-auto: create
     properties:
       hibernate:
-        format_sql: false
+        format_sql: true
+        default_batch_fetch_size: 10
   thymeleaf:
     cache: false
   devtools:
