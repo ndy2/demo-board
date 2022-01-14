@@ -1,7 +1,6 @@
 package com.example.demoboard.service;
 
 import com.example.demoboard.domain.*;
-import com.example.demoboard.repository.AccountRepository;
 import com.example.demoboard.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -11,14 +10,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
-import static com.example.demoboard.domain.Post.createPost;
-
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class PostService {
 
-    private final AccountRepository accountRepository;
     private final PostRepository postRepository;
 
     @Transactional
@@ -52,4 +48,10 @@ public class PostService {
     public void delete(Long postId) {
         postRepository.deleteById(postId);
     }
+
+
+    public PostContentDto findContentDtoByIdFetchWriter(Long postId){
+        return postRepository.findByIdFetchWriterDto(postId);
+    }
+
 }

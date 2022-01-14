@@ -13,7 +13,7 @@ import static javax.persistence.FetchType.LAZY;
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@ToString(exclude = {"writer"})
+@ToString(exclude = {"writer","comments"})
 public class Post {
 
     @Id @GeneratedValue
@@ -23,6 +23,7 @@ public class Post {
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name="account_id", foreignKey = @ForeignKey(name="fk_post_writer"))
     private Account writer;
+
     private String title;
 
     @Lob
@@ -55,5 +56,6 @@ public class Post {
     public void writeComment(Comment comment, Account writer) {
         this.comments.add(comment);
         comment.setWriter(writer);
+        comment.setPost(this);
     }
 }

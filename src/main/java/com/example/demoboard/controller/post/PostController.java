@@ -2,7 +2,9 @@ package com.example.demoboard.controller.post;
 
 import com.example.demoboard.domain.Account;
 import com.example.demoboard.domain.Post;
+import com.example.demoboard.domain.PostContentDto;
 import com.example.demoboard.domain.PostDto;
+import com.example.demoboard.service.CommentService;
 import com.example.demoboard.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -18,6 +20,7 @@ import static com.example.demoboard.domain.Post.createPost;
 public class PostController {
 
     private final PostService postService;
+    private final CommentService commentService;
 
     //== Account 정보 가져오기 ==//
     @ModelAttribute
@@ -44,8 +47,10 @@ public class PostController {
 
     @GetMapping("qna/{postId}")
     public String PostContent(@PathVariable Long postId, Model model){
-        Post post = postService.findById(postId);
-        model.addAttribute("post",post);
+
+        model.addAttribute("post", postService.findContentDtoByIdFetchWriter(postId));
+        model.addAttribute("comments",commentService.findDtoByPostIdFetchWriter(postId));
+
         return "qna/show";
     }
 
@@ -56,8 +61,8 @@ public class PostController {
             return "denied";
         }
 
-        Post post = postService.findById(postId);
-        model.addAttribute("post",post);
+        PostContentDto postDto = postService.findContentDtoByIdFetchWriter(postId);
+        model.addAttribute("post", postDto);
         return "qna/edit";
     }
 

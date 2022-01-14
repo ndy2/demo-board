@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<footer th:fragment="jsFragment">
+
+    <!-- 공통으로 쓰이는 js 파일을 넣는다.-->
+    <script src="../static/js/jquery-2.2.0.min.js" th:src="@{/js/jquery-2.2.0.min.js}"></script>
+    <script src="../static/js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
+    <script src="../static/js/scripts.js" th:src="@{/js/scripts.js}"></script>
+</footer>
+</html>

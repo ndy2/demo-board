@@ -13,7 +13,7 @@ import static lombok.AccessLevel.PROTECTED;
 @Entity
 @Getter
 @NoArgsConstructor(access = PROTECTED)
-@ToString(exclude = {"account","post"})
+@ToString(exclude = {"writer","post"})
 public class Comment {
     @Id @GeneratedValue
     @Column(name = "comment_id")
@@ -42,5 +42,9 @@ public class Comment {
 
     public void setWriter(Account writer) {
         this.writer=writer;
+    }
+
+    public void setPost(Post post) {
+        this.post = post;
     }
 }

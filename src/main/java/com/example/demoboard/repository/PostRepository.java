@@ -1,11 +1,21 @@
 package com.example.demoboard.repository;
 
 import com.example.demoboard.domain.Post;
+import com.example.demoboard.domain.PostContentDto;
+import com.example.demoboard.domain.PostDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 public interface PostRepository extends JpaRepository<Post,Long> {
     Page<Post> findAll(Pageable pageable);
+
+    @Query("select p from Post p join fetch p.writer w where p.id=:postId")
+    Post findByIdFetchWriter(@Param("postId") Long postId);
+
+    @Query("select new com.example.demoboard.domain.PostContentDto(p.id,w.name,w.id,p.createDate,p.title,p.contents)" +
+            " from Post p join p.writer w where p.id=:postId")
+    PostContentDto findByIdFetchWriterDto(@Param("postId") Long postId);
 }
