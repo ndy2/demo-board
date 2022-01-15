@@ -12,8 +12,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-@Controller
-@RequiredArgsConstructor
+//CommentApiController 사용
+//@Controller
+//@RequiredArgsConstructor
 public class CommentController {
 
     //== Account 정보 가져오기 ==//
@@ -22,8 +23,8 @@ public class CommentController {
         return (Account) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
 
-    private final PostService postService;
-    private final CommentService commentService;
+    private /*final*/ PostService postService;
+    private /*final*/ CommentService commentService;
 
     @PostMapping("/qna/{postId}/answers")
     public String comment(@PathVariable Long postId, String contents){

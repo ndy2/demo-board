@@ -42,10 +42,6 @@ public class Post {
         return post;
     }
 
-    public boolean isWrittenBy(Long writerId) {
-        return writer.getId() == writerId;
-    }
-
     //==수정 매서드==// Update
     public void edit(String title, String contents) {
         this.title = title;
@@ -58,4 +54,11 @@ public class Post {
         comment.setWriter(writer);
         comment.setPost(this);
     }
+
+    //==비즈니스 로직==//
+    public boolean isWrittenBy(Long writerId) {
+        return writer.getId() == writerId;
+    }
+
+
 }

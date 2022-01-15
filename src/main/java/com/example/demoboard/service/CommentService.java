@@ -2,11 +2,13 @@ package com.example.demoboard.service;
 
 import com.example.demoboard.domain.Comment;
 import com.example.demoboard.domain.CommentDto;
+import com.example.demoboard.domain.Post;
 import com.example.demoboard.repository.CommentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -24,5 +26,11 @@ public class CommentService {
 
     public void deleteById(Long commentId) {
         commentRepository.deleteById(commentId);
+    }
+
+    public boolean isWrittenBy(Long commentId, Long writerId) {
+        Optional<Comment> commentOptional = commentRepository.findById(commentId);
+        return commentOptional.isPresent()
+                && commentOptional.get().isWrittenBy(writerId);
     }
 }

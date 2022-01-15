@@ -1,10 +1,7 @@
 package com.example.demoboard.controller.comment;
 
 
-import com.example.demoboard.domain.Account;
-import com.example.demoboard.domain.Comment;
-import com.example.demoboard.domain.CommentDto;
-import com.example.demoboard.domain.Post;
+import com.example.demoboard.domain.*;
 import com.example.demoboard.service.CommentService;
 import com.example.demoboard.service.PostService;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 public class CommentApiController {
 
     //== Account 정보 가져오기 ==//
-    @ModelAttribute
     private Account getAccount() {
         return (Account) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
@@ -36,8 +32,17 @@ public class CommentApiController {
     }
 
     @DeleteMapping("/api/qna/{postId}/comment/{commentId}")
-    public String delete(@PathVariable Long commentId){
+    public Result delete(@PathVariable Long commentId){
+
+        if(!isValidRequest(commentId)){
+            return Result.fail("권한이 없습니다.");
+        }
+
         commentService.deleteById(commentId);
-        return "ok";
+        return Result.ok();
+    }
+
+    private boolean isValidRequest(Long commentId) {
+        return commentService.isWrittenBy(commentId,getAccount().getId());
     }
 }

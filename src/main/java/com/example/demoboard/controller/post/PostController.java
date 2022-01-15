@@ -57,7 +57,7 @@ public class PostController {
     @GetMapping("qna/edit/{postId}")
     public String PostEditForm(@PathVariable Long postId, Model model){
         //사용자 검증
-        if(!isValidEditRequest(postId)){
+        if(!isValidRequest(postId)){
             return "denied";
         }
 
@@ -69,7 +69,7 @@ public class PostController {
     @PutMapping("qna/edit/{postId}")
     public String PostEdit(@PathVariable Long postId, PostDto postDto){
         //사용자 검증
-        if(!isValidEditRequest(postId)){
+        if(!isValidRequest(postId)){
             return "denied";
         }
         //수정
@@ -82,7 +82,7 @@ public class PostController {
     @DeleteMapping("qna/{postId}")
     public String PostDelete(@PathVariable Long postId){
         //사용자 검증
-        if(!isValidEditRequest(postId)){
+        if(!isValidRequest(postId)){
             return "denied";
         }
         //수정
@@ -92,7 +92,7 @@ public class PostController {
         return "redirect:/";
     }
 
-    private boolean isValidEditRequest(Long postId) {
+    private boolean isValidRequest(Long postId) {
         return postService.isWrittenBy(postId, getAccount().getId());
     }
 }

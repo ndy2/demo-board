@@ -27,14 +27,13 @@ function onSuccess(data,status){
         data.writerName, data.createDate,data.contents, data.id
     )
 
-    $(".comment-write").prepend(template);
-    $(".comment-write textarea").val("");
+    $(".comment-write").prepend(template);     //댓글 추가 - 위치 이상함...
+    $(".comment-write textarea").val("");      //댓글 작성 칸 비우기
 }
 
 /**
  *  댓글 삭제
  */
-// $(".delete-answer-form").click(deleteComment);
 $(document).on('click', '.delete-answer-form', deleteComment);
 
 function deleteComment(e){
@@ -46,16 +45,19 @@ function deleteComment(e){
     $.ajax({
         type : 'delete',
         url : url,
-        dataType : 'text',
+        dataType : 'json',
         error : function(xhr,status){
             console.log("error");
-            console.log("xhr : "+xhr);
-            console.log("status : "+status);
         },
         success : function(data,status){
-            console.log("success");
             console.log(data);
-            deleteBtn.closest("article").remove();
+            if(data.valid){
+                deleteBtn.closest("article").remove();  //댓글 삭제
+            }else{
+                alert(data.errorMessage);               //권한이 없는경우
+            }
+
+
         }
     })
 

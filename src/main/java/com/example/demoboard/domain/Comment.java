@@ -43,8 +43,12 @@ public class Comment {
     public void setWriter(Account writer) {
         this.writer=writer;
     }
-
     public void setPost(Post post) {
         this.post = post;
+    }
+
+    //==비즈니스 로직==//
+    public boolean isWrittenBy(Long writerId) {
+        return writer.getId()==writerId;
     }
 }
