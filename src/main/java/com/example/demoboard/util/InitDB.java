@@ -1,4 +1,4 @@
-package com.example.demoboard;
+package com.example.demoboard.util;
 
 import com.example.demoboard.domain.Account;
 import com.example.demoboard.domain.Comment;
