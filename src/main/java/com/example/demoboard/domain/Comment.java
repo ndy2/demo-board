@@ -1,5 +1,6 @@
 package com.example.demoboard.domain;
 
+import com.example.demoboard.domain.util.BaseEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -14,7 +15,7 @@ import static lombok.AccessLevel.PROTECTED;
 @Getter
 @NoArgsConstructor(access = PROTECTED)
 @ToString(exclude = {"writer","post"})
-public class Comment {
+public class Comment extends BaseEntity {
     @Id @GeneratedValue
     @Column(name = "comment_id")
     private Long id;
@@ -30,13 +31,11 @@ public class Comment {
     @Lob
     private String contents;
 
-    private LocalDateTime createDate;
 
     //==생성 매서드 ==//
     public static Comment createComment(String contents){
         Comment comment = new Comment();
         comment.contents=contents;
-        comment.createDate=LocalDateTime.now();
         return comment;
     }
 

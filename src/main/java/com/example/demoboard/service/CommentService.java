@@ -1,8 +1,7 @@
 package com.example.demoboard.service;
 
 import com.example.demoboard.domain.Comment;
-import com.example.demoboard.domain.CommentDto;
-import com.example.demoboard.domain.Post;
+import com.example.demoboard.domain.dto.CommentDto;
 import com.example.demoboard.repository.CommentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

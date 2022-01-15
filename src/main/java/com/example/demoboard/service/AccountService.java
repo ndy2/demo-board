@@ -1,16 +1,11 @@
 package com.example.demoboard.service;
 
 import com.example.demoboard.domain.Account;
-import com.example.demoboard.domain.AccountDto;
-import com.example.demoboard.domain.AccountEditDto;
+import com.example.demoboard.domain.dto.AccountEditDto;
 import com.example.demoboard.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
-import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import static com.example.demoboard.domain.Account.createAccount;
 
 @Service
 @RequiredArgsConstructor
@@ -40,5 +35,9 @@ public class AccountService {
 
     public Account findById(Long id) {
         return accountRepository.findById(id).get();
+    }
+
+    public Account findByIdFetchPostList(Long id) {
+        return accountRepository.findByIdFetchPostList(id);
     }
 }

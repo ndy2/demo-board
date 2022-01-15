@@ -1,7 +1,7 @@
 package com.example.demoboard.repository;
 
 import com.example.demoboard.domain.Comment;
-import com.example.demoboard.domain.CommentDto;
+import com.example.demoboard.domain.dto.CommentDto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -15,7 +15,7 @@ public interface CommentRepository extends JpaRepository<Comment,Long> {
             " where c.post.id =:postId")
     List<Comment> findAllByPostIdFetchWriter(@Param("postId") Long postId);
 
-    @Query("select new com.example.demoboard.domain.CommentDto(w.id, w.name,c.contents,c.createDate,c.id)" +
+    @Query("select new com.example.demoboard.domain.dto.CommentDto(w.id, w.name,c.contents,c.createdDate,c.id)" +
             " from Comment c join c.writer w" +
             " where c.post.id =:postId")
     List<CommentDto> findAllByPostIdFetchWriterDto(@Param("postId") Long postId);

@@ -1,7 +1,7 @@
 package com.example.demoboard.controller;
 
 import com.example.demoboard.domain.Account;
-import com.example.demoboard.domain.PostDisplayDto;
+import com.example.demoboard.domain.dto.PostDisplayDto;
 import com.example.demoboard.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -15,7 +15,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequiredArgsConstructor

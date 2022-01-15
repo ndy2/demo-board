@@ -1,4 +1,4 @@
-package com.example.demoboard.domain;
+package com.example.demoboard.domain.dto;
 
 import lombok.Getter;
 import lombok.ToString;
@@ -11,14 +11,14 @@ public class CommentDto {
     private Long writerId;
     private String writerName;
     private String contents;
-    private LocalDateTime createDate;
+    private LocalDateTime createdDate;
     private Long id;
 
-    public CommentDto(Long writerId, String writerName, String contents, LocalDateTime createDate, Long id) {
+    public CommentDto(Long writerId, String writerName, String contents, LocalDateTime createdDate, Long id) {
         this.writerId = writerId;
         this.writerName = writerName;
-        this.contents = contents;
-        this.createDate = createDate;
+        this.contents = contents.replace("\r\n","<br>");
+        this.createdDate = createdDate;
         this.id = id;
     }
 }

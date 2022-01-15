@@ -1,4 +1,4 @@
-package com.example.demoboard.domain;
+package com.example.demoboard.domain.util;
 
 public class Result {
     private boolean valid;

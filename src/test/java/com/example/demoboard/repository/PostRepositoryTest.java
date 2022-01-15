@@ -1,8 +1,7 @@
 package com.example.demoboard.repository;
 
 import com.example.demoboard.domain.Post;
-import com.example.demoboard.domain.PostContentDto;
-import com.example.demoboard.domain.PostDto;
+import com.example.demoboard.domain.dto.PostContentDto;
 import com.example.demoboard.service.PostService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

@@ -1,5 +1,6 @@
-package com.example.demoboard.domain;
+package com.example.demoboard.domain.dto;
 
+import com.example.demoboard.domain.Post;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -12,19 +13,19 @@ public class PostDisplayDto {
     private Long id;
     private String writerName;
     private String title;
-    private LocalDateTime createDate;
+    private LocalDateTime createdDate;
 
-    public PostDisplayDto(Long id, String writerName, String title, LocalDateTime createDate) {
+    public PostDisplayDto(Long id, String writerName, String title, LocalDateTime createdDate) {
         this.id = id;
         this.writerName = writerName;
         this.title = title;
-        this.createDate = createDate;
+        this.createdDate = createdDate;
     }
 
     public PostDisplayDto(Post post){
         this.id = post.getId();
         this.writerName = post.getWriter().getName();
         this.title = post.getTitle();
-        this.createDate = post.getCreateDate();
+        this.createdDate = post.getCreatedDate();
     }
 }

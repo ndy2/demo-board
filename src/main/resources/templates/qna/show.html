@@ -19,11 +19,11 @@
                             </div>
                             <div class="article-header-text">
                                 <p class="article-author-name" th:text="${post.writerName}"/>
-                                <p class="article-header-time" th:text="${post.createDate}"/>
+                                <p class="article-header-time" th:text="${post.getCreatedDate}"/>
                             </div>
                         </div>
                         <div class="article-doc">
-                            <p th:text="${post.contents}"/>
+                            <p th:utext="${post.contents}" />
                         </div>
                         <div class="article-util">
                             <ul class="article-util-list">
@@ -54,11 +54,11 @@
                                         </div>
                                         <div class="article-header-text">
                                             <a class="article-author-name" th:text="${comment.writerName}"/>
-                                            <a class="article-header-time"  th:text="${comment.createDate}"/>
+                                            <a class="article-header-time"  th:text="${comment.getCreatedDate}"/>
                                         </div>
                                     </div>
                                     <div class="article-doc comment-doc">
-                                        <p th:text="${comment.contents}" />
+                                        <p th:utext="${comment.contents}" />
                                     </div>
                                     <div class="article-util">
                                         <ul class="article-util-list">

@@ -1,6 +1,9 @@
 package com.example.demoboard.service;
 
 import com.example.demoboard.domain.*;
+import com.example.demoboard.domain.dto.PostContentDto;
+import com.example.demoboard.domain.dto.PostDisplayDto;
+import com.example.demoboard.domain.dto.PostDto;
 import com.example.demoboard.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

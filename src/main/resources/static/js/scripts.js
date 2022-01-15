@@ -24,7 +24,7 @@ function onSuccess(data,status){
     console.log(data);
     var commentTemplate = $("#answerTemplate").html();
     var template = commentTemplate.format(
-        data.writerName, data.createDate,data.contents, data.id
+        data.writerName, data.createdDate,data.contents, data.id
     )
 
     $(".comment-write").prepend(template);     //댓글 추가 - 위치 이상함...

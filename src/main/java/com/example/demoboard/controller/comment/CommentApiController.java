@@ -2,8 +2,10 @@ package com.example.demoboard.controller.comment;
 
 
 import com.example.demoboard.domain.*;
+import com.example.demoboard.domain.dto.CommentDto;
 import com.example.demoboard.service.CommentService;
 import com.example.demoboard.service.PostService;
+import com.example.demoboard.domain.util.Result;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
@@ -28,7 +30,7 @@ public class CommentApiController {
         writer.writeCommentOnPost(comment,post);
         commentService.save(comment);
 
-        return new CommentDto(writer.getId(), writer.getName(),comment.getContents(),comment.getCreateDate(),comment.getId());
+        return new CommentDto(writer.getId(), writer.getName(),comment.getContents(),comment.getCreatedDate(),comment.getId());
     }
 
     @DeleteMapping("/api/qna/{postId}/comment/{commentId}")

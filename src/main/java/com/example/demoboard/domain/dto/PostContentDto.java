@@ -1,4 +1,4 @@
-package com.example.demoboard.domain;
+package com.example.demoboard.domain.dto;
 
 import lombok.Getter;
 import lombok.ToString;
@@ -12,18 +12,18 @@ public class PostContentDto {
     private Long postId;
     private String writerName;
     private Long writerId;
-    private LocalDateTime createDate;
+    private LocalDateTime createdDate;
     private String title;
     private String contents;
     private List<CommentDto> commentDtos;
 
-    public PostContentDto(Long postId, String writerName, Long writerId, LocalDateTime createDate, String title, String contents) {
+    public PostContentDto(Long postId, String writerName, Long writerId, LocalDateTime createdDate, String title, String contents) {
         this.postId = postId;
         this.writerName = writerName;
         this.writerId = writerId;
-        this.createDate = createDate;
+        this.createdDate = createdDate;
         this.title = title;
-        this.contents = contents;
+        this.contents = contents.replace("\r\n","<br>");
     }
 
     public void setCommentDtos(List<CommentDto> commentDtos) {

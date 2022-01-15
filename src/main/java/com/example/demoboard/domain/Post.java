@@ -1,5 +1,6 @@
 package com.example.demoboard.domain;
 
+import com.example.demoboard.domain.util.BaseEntity;
 import lombok.*;
 
 import javax.persistence.*;
@@ -14,7 +15,7 @@ import static javax.persistence.FetchType.LAZY;
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString(exclude = {"writer","comments"})
-public class Post {
+public class Post extends BaseEntity {
 
     @Id @GeneratedValue
     @Column(name="post_id")
@@ -28,7 +29,6 @@ public class Post {
 
     @Lob
     private String contents;
-    private LocalDateTime createDate;
 
     @OneToMany(mappedBy = "post")
     private List<Comment> comments = new ArrayList<>();
@@ -38,7 +38,6 @@ public class Post {
         Post post = new Post();
         post.setTitle(title);
         post.setContents(contents);
-        post.setCreateDate(LocalDateTime.now());
         return post;
     }
 

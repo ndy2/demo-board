@@ -1,5 +1,6 @@
 package com.example.demoboard.domain;
 
+import com.example.demoboard.domain.util.BaseEntity;
 import lombok.*;
 
 import javax.persistence.*;
@@ -10,7 +11,7 @@ import java.util.List;
 @Getter @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString(exclude = {"postList"})
-public class Account {
+public class Account extends BaseEntity {
 
     @Id @GeneratedValue
     @Column(name = "account_id")
@@ -49,8 +50,15 @@ public class Account {
 
     //==연관관계 편의 매서드==//
     public void writePost(Post post){
+        loadPostList();
         this.postList.add(post);
         post.setWriter(this);
+    }
+
+    private void loadPostList() {
+        for (Post post : postList) {
+            post.getId();
+        }
     }
 
     public void writeCommentOnPost(Comment comment, Post post){

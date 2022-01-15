@@ -1,7 +1,6 @@
 package com.example.demoboard;
 
 import com.example.demoboard.domain.Account;
-import com.example.demoboard.domain.AccountDto;
 import com.example.demoboard.domain.Comment;
 import com.example.demoboard.domain.Post;
 import com.example.demoboard.service.AccountService;

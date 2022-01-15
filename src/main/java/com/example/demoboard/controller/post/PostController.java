@@ -2,8 +2,9 @@ package com.example.demoboard.controller.post;
 
 import com.example.demoboard.domain.Account;
 import com.example.demoboard.domain.Post;
-import com.example.demoboard.domain.PostContentDto;
-import com.example.demoboard.domain.PostDto;
+import com.example.demoboard.domain.dto.PostContentDto;
+import com.example.demoboard.domain.dto.PostDto;
+import com.example.demoboard.service.AccountService;
 import com.example.demoboard.service.CommentService;
 import com.example.demoboard.service.PostService;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +20,7 @@ import static com.example.demoboard.domain.Post.createPost;
 @RequiredArgsConstructor
 public class PostController {
 
+    private final AccountService accountService;
     private final PostService postService;
     private final CommentService commentService;
 
@@ -35,10 +37,12 @@ public class PostController {
 
     @PostMapping("qna/form")
     public String Post(@Validated PostDto postDto){
-        Account writer = getAccount();
-        Post post = createPost(postDto.getTitle(), postDto.getContents());
-        writer.writePost(post);
+        Account account = getAccount();
+        Account writer = accountService.findByIdFetchPostList(account.getId());
 
+        Post post = createPost(postDto.getTitle(), postDto.getContents());
+
+        writer.writePost(post);
         Long postId = postService.post(post);
 
         //게시글 작성후 게시글로 이동

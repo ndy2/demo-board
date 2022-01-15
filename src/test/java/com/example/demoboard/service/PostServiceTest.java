@@ -1,6 +1,7 @@
 package com.example.demoboard.service;
 
 import com.example.demoboard.domain.*;
+import com.example.demoboard.domain.dto.PostDisplayDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

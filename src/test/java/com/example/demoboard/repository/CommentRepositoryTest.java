@@ -1,7 +1,7 @@
 package com.example.demoboard.repository;
 
 import com.example.demoboard.domain.Comment;
-import com.example.demoboard.domain.CommentDto;
+import com.example.demoboard.domain.dto.CommentDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

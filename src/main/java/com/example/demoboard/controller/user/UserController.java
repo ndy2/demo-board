@@ -1,8 +1,8 @@
 package com.example.demoboard.controller.user;
 
 import com.example.demoboard.domain.Account;
-import com.example.demoboard.domain.AccountDto;
-import com.example.demoboard.domain.AccountEditDto;
+import com.example.demoboard.domain.dto.AccountDto;
+import com.example.demoboard.domain.dto.AccountEditDto;
 import com.example.demoboard.service.AccountService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
