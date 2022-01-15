@@ -23,7 +23,7 @@
             <ul class="nav navbar-nav navbar-right">
 
                 <!--인증시 사용된 객체에 대한 정보-->
-                <div sec:authorize="isAuthenticated()">
+                <div sec:authorize="isAuthenticated()" th:if="${#response.status<300 and #response.status>=200}">
                     <div  th:text="${account.name}"></div>
                 </div>
 
