@@ -1,6 +1,9 @@
 package com.example.demoboard.security.handler;
 
+import com.example.demoboard.domain.Account;
+import com.example.demoboard.repository.PostRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
@@ -21,6 +24,7 @@ public class CustomAuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 
     private RequestCache requestCache = new HttpSessionRequestCache();
     private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
+    @Autowired private PostRepository postRepository;
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
@@ -29,14 +33,14 @@ public class CustomAuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 
         SavedRequest savedRequest = requestCache.getRequest(request, response);
         if(savedRequest!=null){
-
             String targetUrl = savedRequest.getRedirectUrl();
-            log.info("redirect 1 target : {}", targetUrl);
             redirectStrategy.sendRedirect(request,response,targetUrl);
         }else{
-
-            log.info("redirect 2 target : {}", getDefaultTargetUrl());
             redirectStrategy.sendRedirect(request,response,getDefaultTargetUrl());
         }
+
+        /* 로그인 성공로직 추가 */ 
+        Account account = (Account)authentication.getPrincipal();
+        account.setPostList(postRepository.findByWriterId(account.getId()));
     }
 }

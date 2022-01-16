@@ -50,18 +50,16 @@ public class Account extends BaseEntity {
 
     //==연관관계 편의 매서드==//
     public void writePost(Post post){
-        loadPostList();
         this.postList.add(post);
         post.setWriter(this);
     }
 
-    private void loadPostList() {
-        for (Post post : postList) {
-            post.getId();
-        }
-    }
 
     public void writeCommentOnPost(Comment comment, Post post){
         post.writeComment(comment,this);
+    }
+
+    public void deletePost(Long postId) {
+        postList.removeIf(p->(p.getId().equals(postId)));
     }
 }

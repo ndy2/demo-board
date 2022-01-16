@@ -11,6 +11,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceUnitUtil;
 
+import java.util.List;
+
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @SpringBootTest
@@ -35,6 +37,15 @@ class PostRepositoryTest {
     void commentFetchDtoTest(){
         PostContentDto postContentDto = postRepository.findByIdFetchWriterDto(29L);
         System.out.println("postContentDto = " + postContentDto);
+    }
+
+    @Test
+    @DisplayName("findByWriterId 를 사용하면 작성자의 아이디에 따라 모든 포스트를 끌어온다.")
+    void findByWriterIdTest(){
+        List<Post> list = postRepository.findByWriterId(1L);
+        for (Post post : list) {
+            System.out.println("post = " + post);
+        }
     }
 
 }

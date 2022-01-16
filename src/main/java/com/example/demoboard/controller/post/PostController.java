@@ -37,14 +37,10 @@ public class PostController {
 
     @PostMapping("qna/form")
     public String Post(@Validated PostDto postDto){
-        Account account = getAccount();
-        Account writer = accountService.findByIdFetchPostList(account.getId());
-
         Post post = createPost(postDto.getTitle(), postDto.getContents());
+        getAccount().writePost(post);
 
-        writer.writePost(post);
         Long postId = postService.post(post);
-
         //게시글 작성후 게시글로 이동
         return "redirect:/qna/"+postId;
     }
@@ -89,7 +85,8 @@ public class PostController {
         if(!isValidRequest(postId)){
             return "denied";
         }
-        //수정
+        //삭제
+        getAccount().deletePost(postId);
         postService.delete(postId);
 
         //삭제 후 메인페이지로 이동

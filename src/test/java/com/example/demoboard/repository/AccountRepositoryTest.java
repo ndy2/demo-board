@@ -7,11 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceUnit;
 import javax.persistence.PersistenceUnitUtil;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class AccountRepositoryTest {
@@ -21,11 +19,6 @@ class AccountRepositoryTest {
 
     @Test
     void postListFetchTest(){
-        PersistenceUnitUtil util = emf.getPersistenceUnitUtil();
-        Account ndy = accountRepository.findByIdFetchPostList(1L);
 
-        for (Post post : ndy.getPostList()) {
-            assertThat(util.isLoaded(post)).isTrue();
-        }
     }
 }

@@ -40,6 +40,8 @@ public class CommentApiController {
             return Result.fail("권한이 없습니다.");
         }
 
+
+
         commentService.deleteById(commentId);
         return Result.ok();
     }

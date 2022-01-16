@@ -8,6 +8,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
+
 public interface PostRepository extends JpaRepository<Post,Long> {
     Page<Post> findAll(Pageable pageable);
 
@@ -17,4 +19,7 @@ public interface PostRepository extends JpaRepository<Post,Long> {
     @Query("select new com.example.demoboard.domain.dto.PostContentDto(p.id,w.name,w.id,p.createdDate,p.title,p.contents)" +
             " from Post p join p.writer w where p.id=:postId")
     PostContentDto findByIdFetchWriterDto(@Param("postId") Long postId);
+
+    @Query("select p from Post p join p.writer w where w.id=:writerId")
+    List<Post> findByWriterId(@Param("writerId") Long writerId);
 }

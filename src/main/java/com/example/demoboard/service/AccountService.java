@@ -31,13 +31,4 @@ public class AccountService {
         //== 현재 접속 중인 account 정보 수정==//
         account.update(accountEditDto.getEmail(),accountEditDto.getName(), accountEditDto.getPassword());
     }
-
-
-    public Account findById(Long id) {
-        return accountRepository.findById(id).get();
-    }
-
-    public Account findByIdFetchPostList(Long id) {
-        return accountRepository.findByIdFetchPostList(id);
-    }
 }
