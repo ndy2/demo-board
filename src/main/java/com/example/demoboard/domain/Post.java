@@ -54,10 +54,13 @@ public class Post extends BaseEntity {
         comment.setPost(this);
     }
 
+    public void deleteComment(Long commentId) {
+        comments.removeIf(c->c.getId()==commentId);
+    }
+
     //==비즈니스 로직==//
     public boolean isWrittenBy(Long writerId) {
         return writer.getId() == writerId;
     }
-
 
 }

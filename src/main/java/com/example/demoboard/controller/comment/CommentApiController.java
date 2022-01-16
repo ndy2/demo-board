@@ -34,13 +34,14 @@ public class CommentApiController {
     }
 
     @DeleteMapping("/api/qna/{postId}/comment/{commentId}")
-    public Result delete(@PathVariable Long commentId){
+    public Result delete(@PathVariable Long postId,@PathVariable Long commentId){
 
         if(!isValidRequest(commentId)){
             return Result.fail("권한이 없습니다.");
         }
 
-
+        Post post = postService.findById(postId);
+        post.deleteComment(commentId);
 
         commentService.deleteById(commentId);
         return Result.ok();
