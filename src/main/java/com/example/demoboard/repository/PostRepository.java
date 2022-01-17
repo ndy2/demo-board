@@ -16,7 +16,7 @@ public interface PostRepository extends JpaRepository<Post,Long> {
     @Query("select p from Post p join fetch p.writer w where p.id=:postId")
     Post findByIdFetchWriter(@Param("postId") Long postId);
 
-    @Query("select new com.example.demoboard.domain.dto.PostContentDto(p.id,w.name,w.id,p.createdDate,p.title,p.contents)" +
+    @Query("select new com.example.demoboard.domain.dto.PostContentDto(p.id,w.name,w.id,p.createdDate,p.title,p.contents,p.voteUpCount)" +
             " from Post p join p.writer w where p.id=:postId")
     PostContentDto findByIdFetchWriterDto(@Param("postId") Long postId);
 

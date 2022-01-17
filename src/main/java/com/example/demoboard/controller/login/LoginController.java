@@ -1,6 +1,5 @@
 package com.example.demoboard.controller.login;
 
-import com.example.demoboard.domain.Account;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

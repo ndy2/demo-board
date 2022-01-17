@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import static com.example.demoboard.domain.Post.createPost;
 
 @Controller
+@RequestMapping("/qna")
 @RequiredArgsConstructor
 public class PostController {
 
@@ -30,12 +31,12 @@ public class PostController {
         return (Account) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
 
-    @GetMapping("qna/form")
+    @GetMapping("/form")
     public String PostForm(){
         return "qna/form";
     }
 
-    @PostMapping("qna/form")
+    @PostMapping("/form")
     public String Post(@Validated PostDto postDto){
         Post post = createPost(postDto.getTitle(), postDto.getContents());
         getAccount().writePost(post);
@@ -45,7 +46,7 @@ public class PostController {
         return "redirect:/qna/"+postId;
     }
 
-    @GetMapping("qna/{postId}")
+    @GetMapping("/{postId}")
     public String PostContent(@PathVariable Long postId, Model model){
 
         model.addAttribute("post", postService.findContentDtoByIdFetchWriter(postId));
@@ -54,7 +55,7 @@ public class PostController {
         return "qna/show";
     }
 
-    @GetMapping("qna/edit/{postId}")
+    @GetMapping("/{postId}/edit")
     public String PostEditForm(@PathVariable Long postId, Model model){
         //사용자 검증
         if(!isValidRequest(postId)){
@@ -66,7 +67,7 @@ public class PostController {
         return "qna/edit";
     }
 
-    @PutMapping("qna/edit/{postId}")
+    @PutMapping("/{postId}/edit")
     public String PostEdit(@PathVariable Long postId, PostDto postDto){
         //사용자 검증
         if(!isValidRequest(postId)){
@@ -79,7 +80,7 @@ public class PostController {
         return "redirect:/qna/"+postId;
     }
 
-    @DeleteMapping("qna/{postId}")
+    @DeleteMapping("/{postId}")
     public String PostDelete(@PathVariable Long postId){
         //사용자 검증
         if(!isValidRequest(postId)){

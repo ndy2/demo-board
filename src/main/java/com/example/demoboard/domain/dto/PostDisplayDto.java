@@ -25,7 +25,7 @@ public class PostDisplayDto {
     public PostDisplayDto(Post post){
         this.id = post.getId();
         this.writerName = post.getWriter().getName();
-        this.title = post.getTitle();
+        this.title = post.getDisplayTitle();
         this.createdDate = post.getCreatedDate();
     }
 }

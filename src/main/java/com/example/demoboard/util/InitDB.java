@@ -1,11 +1,10 @@
 package com.example.demoboard.util;
 
-import com.example.demoboard.domain.Account;
-import com.example.demoboard.domain.Comment;
-import com.example.demoboard.domain.Post;
+import com.example.demoboard.domain.*;
 import com.example.demoboard.service.AccountService;
 import com.example.demoboard.service.CommentService;
 import com.example.demoboard.service.PostService;
+import com.example.demoboard.service.VoteService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,6 +38,8 @@ public class InitDB {
         private final AccountService accountService;
         private final PostService postService;
         private final CommentService commentService;
+        private final VoteService voteService;
+
 
         public Account dbInit1(String name){
 
@@ -78,6 +79,8 @@ public class InitDB {
             commentService.save(comment1);
             commentService.save(comment2);
 
+            Vote voteUp = Vote.createVote(VoteType.UP, ndy, post);
+            voteService.save(voteUp);
         }
     }
 

@@ -15,14 +15,17 @@ public class PostContentDto {
     private LocalDateTime createdDate;
     private String title;
     private String contents;
+    private int voteUpCount;
+
     private List<CommentDto> commentDtos;
 
-    public PostContentDto(Long postId, String writerName, Long writerId, LocalDateTime createdDate, String title, String contents) {
+    public PostContentDto(Long postId, String writerName, Long writerId, LocalDateTime createdDate, String title, String contents, int voteUpCount) {
         this.postId = postId;
         this.writerName = writerName;
         this.writerId = writerId;
         this.createdDate = createdDate;
         this.title = title;
+        this.voteUpCount = voteUpCount;
         this.contents = contents.replace("\r\n","<br>");
     }
 

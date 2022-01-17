@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import static javax.persistence.CascadeType.REMOVE;
 import static javax.persistence.FetchType.LAZY;
 
 @Entity
@@ -30,8 +31,11 @@ public class Post extends BaseEntity {
     @Lob
     private String contents;
 
-    @OneToMany(mappedBy = "post")
+    @OneToMany(mappedBy = "post", cascade = REMOVE)
     private List<Comment> comments = new ArrayList<>();
+
+    private int commentsNumber;
+    private int voteUpCount;
 
     //==생성 매서드==// Create
     public static Post createPost(String title, String contents) {
@@ -50,12 +54,19 @@ public class Post extends BaseEntity {
     //==연관관계 편의 매서드==//
     public void writeComment(Comment comment, Account writer) {
         this.comments.add(comment);
+        commentsNumber +=1;
         comment.setWriter(writer);
         comment.setPost(this);
     }
 
     public void deleteComment(Long commentId) {
         comments.removeIf(c->c.getId()==commentId);
+        commentsNumber -=1;
+    }
+
+    public void doVote(Vote vote) {
+        vote.setPost(this);
+        voteUpCount+=1;
     }
 
     //==비즈니스 로직==//
@@ -63,4 +74,11 @@ public class Post extends BaseEntity {
         return writer.getId() == writerId;
     }
 
+    public String getDisplayTitle(){
+        if(commentsNumber==0){
+            return title;
+        }else{
+            return title + " ["+commentsNumber+"]";
+        }
+    }
 }

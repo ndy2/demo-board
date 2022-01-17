@@ -62,4 +62,8 @@ public class Account extends BaseEntity {
     public void deletePost(Long postId) {
         postList.removeIf(p->(p.getId().equals(postId)));
     }
+
+    public void vote(Vote vote) {
+        vote.setAccount(this);
+    }
 }

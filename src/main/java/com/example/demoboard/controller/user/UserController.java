@@ -19,11 +19,13 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import static com.example.demoboard.domain.Account.createAccount;
 
 @Slf4j
 @Controller
+@RequestMapping("/user")
 @RequiredArgsConstructor
 public class UserController {
 
@@ -43,13 +45,13 @@ public class UserController {
     /**
      * 회원가입
      */
-    @GetMapping("/user/form")
+    @GetMapping("/form")
     public String signInForm(Model model){
         model.addAttribute("accountDto",new AccountDto());
         return "user/form";
     }
 
-    @PostMapping("/user/form")
+    @PostMapping("/form")
     public String signIn(@Validated AccountDto accountDto, BindingResult result){
 
         if(result.hasErrors()){
@@ -68,12 +70,12 @@ public class UserController {
     /**
      * 개인정보수정
      */
-    @GetMapping("/user/edit")
+    @GetMapping("/edit")
     public String editUserForm(){
         return "user/edit";
     }
 
-    @PostMapping("/user/edit")
+    @PostMapping("/edit")
     public String editUser(@Validated AccountEditDto accountEditDto, BindingResult result){
         //==SecurityContextHolder 에서 account 가져오기==//
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

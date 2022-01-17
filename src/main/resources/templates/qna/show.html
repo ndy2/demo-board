@@ -42,6 +42,12 @@
                         </div>
                     </article>
 
+
+                    <span class="vote">
+                        <a class="vote_up" th:href="@{|/api/qna/${post.postId}/vote/up|}"> 추천! </a>
+                        <span class="new_voted_count" id="recomend_cnt"  th:text="${post.voteUpCount}" />
+                    </span>
+
                     <div class="qna-comment">
                         <div class="qna-comment-slipp">
                             <p class="qna-comment-count"><strong th:text="${comments.size()}"/>개의 의견</p>

@@ -11,6 +11,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/api/qna/{postId}/comment")
 @RequiredArgsConstructor
 public class CommentApiController {
 
@@ -22,7 +23,7 @@ public class CommentApiController {
     private final PostService postService;
     private final CommentService commentService;
 
-    @PostMapping("/api/qna/{postId}/comment")
+    @PostMapping
     public CommentDto comment(@PathVariable Long postId, String contents){
         Account writer = getAccount();
         Post post = postService.findById(postId);
@@ -33,7 +34,7 @@ public class CommentApiController {
         return new CommentDto(writer.getId(), writer.getName(),comment.getContents(),comment.getCreatedDate(),comment.getId());
     }
 
-    @DeleteMapping("/api/qna/{postId}/comment/{commentId}")
+    @DeleteMapping("/{commentId}")
     public Result delete(@PathVariable Long postId,@PathVariable Long commentId){
 
         if(!isValidRequest(commentId)){

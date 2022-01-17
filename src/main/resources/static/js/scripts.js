@@ -63,6 +63,39 @@ function deleteComment(e){
 
 }
 
+/**
+ * 게시글 추천
+ */
+$(".vote_up").click(recommend_vote);
+
+function recommend_vote(e){
+    e.preventDefault();
+
+    var url = $(this).attr("href");
+    var reccomend_cnt_compoennt =  $(this).next();
+    var cur_reccomend_cnt = reccomend_cnt_compoennt.val();
+    console.log(reccomend_cnt_compoennt);
+    console.log(cur_reccomend_cnt);
+
+    $.ajax({
+        type : 'post',
+        url : url,
+        dataType : 'json',
+        error : function(xhr,status){
+            console.log("error");
+        },
+        success : function(data,status){
+            console.log(data);
+            if(data.valid){
+                console.log("성공!")  //게시글 추천
+                reccomend_cnt_compoennt.text(cur_reccomend_cnt+1);
+            }else{
+                alert(data.errorMessage); //추천을 이미 한 경우
+            }
+        }
+    })
+
+}
 
 
 
