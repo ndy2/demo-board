@@ -59,6 +59,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+                .headers()
+                .xssProtection()
+                .and()
+                .contentSecurityPolicy("script-src 'self'");
+
+        http
                 .authorizeRequests()
                 .antMatchers("/*","/login*","/error","/user/form","/h2-console*","/h2-console/**").permitAll()
                 .anyRequest().authenticated()

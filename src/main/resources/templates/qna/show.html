@@ -28,7 +28,7 @@
                         <div class="article-util">
                             <ul class="article-util-list">
                                 <li>
-                                    <a th:if="${account.id.equals(post.writerId)}" class="link-modify-article" th:href="@{|/qna/edit/${post.postId}|}">수정</a>
+                                    <a th:if="${account.id.equals(post.writerId)}" class="link-modify-article" th:href="@{|/qna/${post.postId}/edit|}">수정</a>
                                 </li>
                                 <li>
                                     <form th:if="${account.id.equals(post.writerId)}" class="form-delete" th:action="@{|/qna/${post.postId}|}" th:method="delete">

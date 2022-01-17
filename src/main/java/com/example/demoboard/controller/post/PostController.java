@@ -63,6 +63,7 @@ public class PostController {
         }
 
         PostContentDto postDto = postService.findContentDtoByIdFetchWriter(postId);
+        postDto.convertNewLine();
         model.addAttribute("post", postDto);
         return "qna/edit";
     }

@@ -32,4 +32,8 @@ public class PostContentDto {
     public void setCommentDtos(List<CommentDto> commentDtos) {
         this.commentDtos = commentDtos;
     }
+
+    public void convertNewLine() {
+        this.contents =contents.replace("<br>","\r\n");
+    }
 }
