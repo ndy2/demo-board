@@ -56,8 +56,6 @@ function deleteComment(e){
             }else{
                 alert(data.errorMessage);               //권한이 없는경우
             }
-
-
         }
     })
 
@@ -96,6 +94,10 @@ function recommend_vote(e){
     })
 
 }
+
+/**
+ * 게시글 조회
+ */
 
 
 

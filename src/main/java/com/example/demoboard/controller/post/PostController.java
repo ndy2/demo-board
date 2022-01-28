@@ -21,7 +21,6 @@ import static com.example.demoboard.domain.Post.createPost;
 @RequiredArgsConstructor
 public class PostController {
 
-    private final AccountService accountService;
     private final PostService postService;
     private final CommentService commentService;
 
@@ -61,9 +60,7 @@ public class PostController {
         if(!isValidRequest(postId)){
             return "denied";
         }
-
         PostContentDto postDto = postService.findContentDtoByIdFetchWriter(postId);
-        postDto.convertNewLine();
         model.addAttribute("post", postDto);
         return "qna/edit";
     }

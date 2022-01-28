@@ -23,6 +23,9 @@ public class CommentApiController {
     private final PostService postService;
     private final CommentService commentService;
 
+    /**
+     * 댓글 작성
+     */
     @PostMapping
     public CommentDto comment(@PathVariable Long postId, String contents){
         Account writer = getAccount();
@@ -31,9 +34,13 @@ public class CommentApiController {
         writer.writeCommentOnPost(comment,post);
         commentService.save(comment);
 
+        
         return new CommentDto(writer.getId(), writer.getName(),comment.getContents(),comment.getCreatedDate(),comment.getId());
     }
-
+    
+    /**
+     * 댓글 삭제
+     */
     @DeleteMapping("/{commentId}")
     public Result delete(@PathVariable Long postId,@PathVariable Long commentId){
 

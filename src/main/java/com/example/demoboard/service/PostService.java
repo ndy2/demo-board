@@ -54,7 +54,9 @@ public class PostService {
 
 
     public PostContentDto findContentDtoByIdFetchWriter(Long postId){
-        return postRepository.findByIdFetchWriterDto(postId);
+        PostContentDto postContentDto = postRepository.findByIdFetchWriterDto(postId);
+        postContentDto.convertNewLine();
+        return  postContentDto;
     }
 
 }
